@@ -1,25 +1,21 @@
-package com.movieticket.model;
+package model;
 
-/**
- * One seat of ONE show. Because every Show creates its own Seat objects,
- * availability is automatically separate for each show.
- */
 public class Seat {
+    private int id;
+    private int rowNumber;
+    private int seatNumber;
+    private SeatType seatType;
 
-    private final String seatNumber;   // e.g. "A1"
-    private boolean booked;
-
-    public Seat(String seatNumber) {
+    public Seat(int id, int rowNumber, int seatNumber, SeatType seatType) {
+        this.id = id;
+        this.rowNumber = rowNumber;
         this.seatNumber = seatNumber;
-        this.booked = false;
+        this.seatType = seatType;
     }
 
-    public String getSeatNumber() { return seatNumber; }
-    public boolean isBooked() { return booked; }
-    public void setBooked(boolean booked) { this.booked = booked; }
-
-    @Override
-    public String toString() {
-        return seatNumber + (booked ? "(booked)" : "");
-    }
+    public int getId() { return id; }
+    public int getRowNumber() { return rowNumber; }
+    public int getSeatNumber() { return seatNumber; }
+    public SeatType getSeatType() { return seatType; }
+    public void setSeatType(SeatType seatType) { this.seatType = seatType; }
 }

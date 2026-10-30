@@ -1,31 +1,31 @@
-package com.movieticket.model;
+package model;
+
+import java.time.LocalDate;
 
 public class Movie {
+    private int id;
+    private String title;
+    private String language;
+    private Genre genre;
+    private int durationMinutes;
+    private LocalDate releaseDate;
+    private Certificate certificate;
 
-    private final String movieId;
-    private final String title;
-    private final String certificate;      // "U", "UA" or "A"
-    private final int durationMinutes;
-
-    public Movie(String movieId, String title, String certificate, int durationMinutes) {
-        this.movieId = movieId;
+    public Movie(int id, String title, String language, Genre genre, int durationMinutes, LocalDate releaseDate, Certificate certificate) {
+        this.id = id;
         this.title = title;
-        this.certificate = certificate;
+        this.language = language;
+        this.genre = genre;
         this.durationMinutes = durationMinutes;
+        this.releaseDate = releaseDate;
+        this.certificate = certificate;
     }
 
-    public String getMovieId() { return movieId; }
+    public int getId() { return id; }
     public String getTitle() { return title; }
-    public String getCertificate() { return certificate; }
+    public String getLanguage() { return language; }
+    public Genre getGenre() { return genre; }
     public int getDurationMinutes() { return durationMinutes; }
-
-    /** True for A-certified movies (only 18+ allowed). */
-    public boolean isAdultOnly() {
-        return "A".equalsIgnoreCase(certificate);
-    }
-
-    @Override
-    public String toString() {
-        return movieId + " - " + title + " [" + certificate + "] " + durationMinutes + " min";
-    }
+    public LocalDate getReleaseDate() { return releaseDate; }
+    public Certificate getCertificate() { return certificate; }
 }
