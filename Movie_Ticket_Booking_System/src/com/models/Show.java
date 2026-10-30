@@ -1,55 +1,68 @@
-package com.movieticket.model;
+// models/Show.java
+package models;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 public class Show {
+    private int showId;
+    private int movieId;
+    private int screenId;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    private BigDecimal regularPrice;
+    private BigDecimal premiumPrice;
+    private BigDecimal reclinerPrice;
+    private ShowStatus status;
 
-    private final String showId;
-    private final Movie movie;
-    private final String screenName;
-    private final LocalDateTime startTime;
-    private final double ticketPrice;
-    private final Map<String, Seat> seats = new LinkedHashMap<>();
+    public Show() {
+        this.status = ShowStatus.SCHEDULED;
+    }
 
-    /** Creates a show with rows x seatsPerRow seats named A1, A2 ... B1, B2 ... */
-    public Show(String showId, Movie movie, String screenName, LocalDateTime startTime,
-                double ticketPrice, int rows, int seatsPerRow) {
-        this.showId = showId;
-        this.movie = movie;
-        this.screenName = screenName;
+    public Show(int movieId, int screenId, LocalDateTime startTime, LocalDateTime endTime,
+                BigDecimal regularPrice, BigDecimal premiumPrice, BigDecimal reclinerPrice) {
+        this.movieId = movieId;
+        this.screenId = screenId;
         this.startTime = startTime;
-        this.ticketPrice = ticketPrice;
-
-        for (int r = 0; r < rows; r++) {
-            char rowLetter = (char) ('A' + r);
-            for (int n = 1; n <= seatsPerRow; n++) {
-                String seatNumber = rowLetter + "" + n;
-                seats.put(seatNumber, new Seat(seatNumber));
-            }
-        }
+        this.endTime = endTime;
+        this.regularPrice = regularPrice;
+        this.premiumPrice = premiumPrice;
+        this.reclinerPrice = reclinerPrice;
+        this.status = ShowStatus.SCHEDULED;
     }
 
-    public String getShowId() { return showId; }
-    public Movie getMovie() { return movie; }
-    public String getScreenName() { return screenName; }
+    public int getShowId() { return showId; }
+    public void setShowId(int showId) { this.showId = showId; }
+
+    public int getMovieId() { return movieId; }
+    public void setMovieId(int movieId) { this.movieId = movieId; }
+
+    public int getScreenId() { return screenId; }
+    public void setScreenId(int screenId) { this.screenId = screenId; }
+
     public LocalDateTime getStartTime() { return startTime; }
-    public double getTicketPrice() { return ticketPrice; }
+    public void setStartTime(LocalDateTime startTime) { this.startTime = startTime; }
 
-    /** Returns null if the seat does not exist in this show. */
-    public Seat getSeat(String seatNumber) {
-        return seats.get(seatNumber);
-    }
+    public LocalDateTime getEndTime() { return endTime; }
+    public void setEndTime(LocalDateTime endTime) { this.endTime = endTime; }
 
-    public List<Seat> getAllSeats() {
-        return new ArrayList<>(seats.values());
-    }
+    public BigDecimal getRegularPrice() { return regularPrice; }
+    public void setRegularPrice(BigDecimal regularPrice) { this.regularPrice = regularPrice; }
+
+    public BigDecimal getPremiumPrice() { return premiumPrice; }
+    public void setPremiumPrice(BigDecimal premiumPrice) { this.premiumPrice = premiumPrice; }
+
+    public BigDecimal getReclinerPrice() { return reclinerPrice; }
+    public void setReclinerPrice(BigDecimal reclinerPrice) { this.reclinerPrice = reclinerPrice; }
+
+    public ShowStatus getStatus() { return status; }
+    public void setStatus(ShowStatus status) { this.status = status; }
 
     @Override
     public String toString() {
-        return showId + " - " + movie.getTitle() + " @ " + startTime;
+        return "Show " + showId + " | movie " + movieId + " | screen " + screenId
+                + " | " + startTime + " to " + endTime
+                + " | Regular " + regularPrice + ", Premium " + premiumPrice
+                + ", Recliner " + reclinerPrice + " | " + status;
     }
 }
